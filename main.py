@@ -1,4 +1,5 @@
 from fastapi import FastAPI, HTTPException
+from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 import joblib
 import os
@@ -11,6 +12,17 @@ app = FastAPI(
     title="AgriShare API",
     description="Crop recommendation API using Machine Learning",
     version="1.0.0"
+)
+
+
+# ---------------- CORS CONFIGURATION ----------------
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
 )
 
 
@@ -39,7 +51,6 @@ general_model = joblib.load(GENERAL_MODEL_PATH)
 
 # ---------------- INPUT SCHEMAS ----------------
 
-# Common numerical inputs
 class BaseCropInput(BaseModel):
     nitrogen: float
     phosphorus: float
@@ -54,14 +65,12 @@ class BaseCropInput(BaseModel):
 
 
 # General Model Input
-# Uses soil type and crop season, but NOT location/state
 class CropInput(BaseCropInput):
     soil_type: str
     crop_season: str
 
 
 # Location-Aware Model Input
-# Uses everything from General Model + state
 class LocationCropInput(CropInput):
     state: str
 
@@ -90,8 +99,6 @@ def model_status():
 def predict_general(data: CropInput):
 
     try:
-        # IMPORTANT:
-        # Column order and names match the trained General Model
         input_data = pd.DataFrame([{
             "soil_type": data.soil_type,
             "crop_season": data.crop_season,
@@ -142,9 +149,10 @@ def predict_general(data: CropInput):
 def predict_location_aware(data: LocationCropInput):
 
     try:
-        # IMPORTANT:
-        # Includes state for the Location-Aware Model
         input_data = pd.DataFrame([{
+            "state": data.state,
+            "soil_type": data.soil_type,
+            "crop_season": data.crop_season,
             "nitrogen": data.nitrogen,
             "phosphorus": data.phosphorus,
             "potassium": data.potassium,
@@ -154,10 +162,7 @@ def predict_location_aware(data: LocationCropInput):
             "electrical_conductivity": data.electrical_conductivity,
             "temperature": data.temperature,
             "humidity": data.humidity,
-            "rainfall": data.rainfall,
-            "state": data.state,
-            "soil_type": data.soil_type,
-            "crop_season": data.crop_season
+            "rainfall": data.rainfall
         }])
 
         probabilities = location_model.predict_proba(input_data)[0]
