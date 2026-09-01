@@ -35,48 +35,4 @@
 | ⚙️ Backend | Python, FastAPI, Pydantic, Uvicorn |
 | 🧠 Machine Learning | Scikit-learn, Pandas, NumPy, Joblib |
 
-## 📁 Project Structure
 
-AgriSense_AI/
-├── backend/
-│   ├── main.py
-│   ├── requirements.txt
-│   ├── models/
-│   └── training/
-├── frontend/
-│   ├── src/
-│   ├── package.json
-│   └── vite.config.js
-└── README.md
----
-🚀 Project Setup
-
-Backend:
-cd backend
-python -m venv .venv
-
-Activate environment:
-
-# Windows PowerShell
-.venv\Scripts\Activate.ps1
-pip install -r requirements.txt
-uvicorn main:app --reload
-
-API Docs: http://127.0.0.1:8000/docs
-
-Frontend:
-cd frontend
-npm install
-npm run dev
-
-🤝 Contributing:
-Fork the repository
-Create a feature branch
-Make your changes
-Commit and push
-Create a Pull Request
-git checkout -b feature/your-feature
-git add .
-git commit -m "Add your feature"
-git push origin feature/your-feature
-<p align="center"> 🌱 <b>AgriSense AI</b><br> Smart Agriculture Through Artificial Intelligence 🚀🌾 </p> 
