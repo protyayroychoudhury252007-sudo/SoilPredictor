@@ -1,4 +1,4 @@
-﻿# 🌱 AgriSense AI
+# 🌱 AgriSense AI
 
 <p align="center">
   <b>AI-Powered Smart Agriculture Decision Support System</b>
@@ -6,446 +6,77 @@
 
 <p align="center">
 
-![Python](https://img.shields.io/badge/Python-3776AB?style=for-the-badge&logo=python&logoColor=white)
-![FastAPI](https://img.shields.io/badge/FastAPI-009688?style=for-the-badge&logo=fastapi&logoColor=white)
-![React](https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB)
-![Vite](https://img.shields.io/badge/Vite-646CFF?style=for-the-badge&logo=vite&logoColor=white)
-![Scikit Learn](https://img.shields.io/badge/Scikit--Learn-F7931E?style=for-the-badge&logo=scikitlearn&logoColor=white)
-![Machine Learning](https://img.shields.io/badge/Machine%20Learning-228B22?style=for-the-badge)
+![Python](https://img.shields.io/badge/Python-Backend-3776AB?style=for-the-badge&logo=python&logoColor=white)
+![FastAPI](https://img.shields.io/badge/FastAPI-API-009688?style=for-the-badge&logo=fastapi&logoColor=white)
+![React](https://img.shields.io/badge/React-Frontend-20232A?style=for-the-badge&logo=react&logoColor=61DAFB)
+![Vite](https://img.shields.io/badge/Vite-Build_Tool-646CFF?style=for-the-badge&logo=vite&logoColor=white)
+![Scikit Learn](https://img.shields.io/badge/Scikit--Learn-ML-F7931E?style=for-the-badge&logo=scikitlearn&logoColor=white)
 
 </p>
 
----
-
 ## 🚜 About
 
-**AgriSense AI** is an AI-powered Smart Agriculture Decision Support System that analyzes soil, environmental, and location-based agricultural data to provide intelligent farming insights.
+**AgriSense AI** is a full-stack AI-powered agriculture decision support system that analyzes soil, environmental, and location data to provide intelligent farming insights.
 
-The platform combines **Machine Learning, FastAPI, and React** to deliver fast and user-friendly agricultural predictions.
-
-### The platform provides:
+### ✨ Key Features
 
 - 🌱 Soil Type Prediction
 - ⭐ Soil Quality Analysis
-- 📊 Soil Quality Percentage
 - 🌾 Crop Recommendation
-- 📍 Location-Aware Crop Prediction
-- 🌙 Modern Dark Mode Interface
-- ⚡ Fast ML-Based Predictions
+- 📍 Location-Aware Predictions
+- ⚡ Fast ML-powered API
+- 🌙 Modern Responsive UI
 
----
+## 🛠️ Tech Stack
 
-## ✨ Features
-
-| Feature | Description |
+| Layer | Technologies |
 |---|---|
-| 🌱 Soil Type Prediction | Predicts the most suitable soil type with Top-3 probabilities |
-| ⭐ Soil Quality Analysis | Estimates soil health and quality percentage |
-| 📊 Soil Quality Percentage | Provides an easy-to-understand soil quality score |
-| 🌾 Crop Recommendation | Suggests Top-5 suitable crops |
-| 📍 Location-Aware Prediction | Uses state information to improve crop recommendations |
-| ⚡ Fast Predictions | Provides predictions through FastAPI and trained ML models |
-| 🌙 Dark Mode | Modern and user-friendly interface |
-| 📱 Responsive UI | Designed for a smooth user experience |
+| 🎨 Frontend | React, Vite, JavaScript, CSS |
+| ⚙️ Backend | Python, FastAPI, Pydantic, Uvicorn |
+| 🧠 Machine Learning | Scikit-learn, Pandas, NumPy, Joblib |
 
----
+## 📁 Project Structure
 
-# 🧠 How AgriSense AI Works
-
-AgriSense AI follows a simple AI-powered decision-making pipeline:
-
-```text
-Agricultural Data
-       │
-       ▼
-┌──────────────────────┐
-│ Soil & Environmental │
-│      Parameters      │
-└──────────┬───────────┘
-           │
-           ▼
-┌──────────────────────┐
-│   FastAPI Backend    │
-└──────────┬───────────┘
-           │
-           ▼
-┌──────────────────────┐
-│   Machine Learning   │
-│       Models         │
-└──────────┬───────────┘
-           │
-           ▼
-┌──────────────────────┐
-│ Agricultural Insights│
-└──────────┬───────────┘
-           │
-           ▼
-┌──────────────────────┐
-│    React Frontend    │
-└──────────────────────┘
-🏛️ Government & Public Sector Use
-
-AgriSense AI can potentially support various smart agriculture and public-sector initiatives, including:
-
-🌾 Smart Agriculture Programs
-🏛️ Digital Agriculture Initiatives
-🌱 Soil Health Monitoring
-👨‍🌾 Farmer Advisory Systems
-📊 Agricultural Data Analysis
-🗺️ District and State-Level Crop Planning
-🔬 Agricultural Research
-🌍 Data-Driven Agricultural Planning
-
-Note: AgriSense AI is currently an academic prototype. Real-world government or commercial deployment would require validation using verified agricultural datasets, field testing, domain-expert review, and appropriate regulatory considerations.
-
-🏗️ System Architecture
-                   ┌─────────────────────┐
-                   │      User Input     │
-                   │ Soil / Environment  │
-                   │ Location / Season   │
-                   └──────────┬──────────┘
-                              │
-                              ▼
-                   ┌─────────────────────┐
-                   │   React + Vite UI  │
-                   └──────────┬──────────┘
-                              │
-                              ▼
-                   ┌─────────────────────┐
-                   │    FastAPI Server   │
-                   └──────────┬──────────┘
-                              │
-                ┌─────────────┼─────────────┐
-                │             │             │
-                ▼             ▼             ▼
-        ┌─────────────┐ ┌─────────────┐ ┌─────────────┐
-        │ Soil Type   │ │ Soil Quality │ │    Crop     │
-        │    Model    │ │    Model     │ │  Models     │
-        └─────────────┘ └─────────────┘ └─────────────┘
-                │             │             │
-                └─────────────┼─────────────┘
-                              │
-                              ▼
-                   ┌─────────────────────┐
-                   │ Agricultural        │
-                   │ Recommendations     │
-                   └─────────────────────┘
-🧠 Technology Stack
-Frontend
-React
-Vite
-JavaScript
-CSS
-Responsive UI
-Dark Mode
-Backend
-Python
-FastAPI
-Pydantic
-Uvicorn
-Machine Learning
-Scikit-learn
-Pandas
-NumPy
-Joblib
-📁 Project Structure
 AgriSense_AI/
-│
 ├── backend/
 │   ├── main.py
 │   ├── requirements.txt
-│   │
 │   ├── models/
-│   │   ├── soil_type_model.joblib
-│   │   ├── soil_quality_model.joblib
-│   │   ├── agrishare_crop_general.joblib
-│   │   └── agrishare_crop_location_aware.joblib
-│   │
 │   └── training/
-│       ├── train_soil_type.py
-│       └── train_soil_quality.py
-│
 ├── frontend/
 │   ├── src/
-│   │   ├── App.jsx
-│   │   ├── App.css
-│   │   └── main.jsx
-│   │
 │   ├── package.json
 │   └── vite.config.js
-│
 └── README.md
-🚀 Installation & Setup
-🖥️ Backend Setup
-1. Clone the Repository
-git clone <YOUR_GITHUB_REPOSITORY_URL>
+---
+🚀 Project Setup
 
-Navigate into the project:
-
-cd AgriSense_AI
-2. Navigate to Backend
+Backend:
 cd backend
-3. Create a Virtual Environment
 python -m venv .venv
-4. Activate Virtual Environment
-Windows PowerShell
+
+Activate environment:
+
+# Windows PowerShell
 .venv\Scripts\Activate.ps1
-Windows Command Prompt
-.venv\Scripts\activate
-Linux / macOS
-source .venv/bin/activate
-5. Install Backend Dependencies
 pip install -r requirements.txt
-6. Run the Backend
 uvicorn main:app --reload
 
-The backend will usually run at:
+API Docs: http://127.0.0.1:8000/docs
 
-http://127.0.0.1:8000
-API Documentation
-
-FastAPI automatically provides interactive API documentation:
-
-http://127.0.0.1:8000/docs
-
-Alternative documentation:
-
-http://127.0.0.1:8000/redoc
-🎨 Frontend Setup
-
-Open a new terminal while keeping the backend running.
-
-1. Navigate to the Frontend
-
-From the project root:
-
+Frontend:
 cd frontend
-2. Install Node Dependencies
 npm install
-3. Start the React Development Server
 npm run dev
 
-Vite will display the local development URL in the terminal.
-
-Usually:
-
-http://localhost:5173
-
-Open this URL in your browser.
-
-🔌 API Endpoints
-Method	Endpoint	Description
-GET	/	API status
-GET	/health	Health check
-POST	/predict/soil-type	Predict soil type
-POST	/predict/soil-quality	Analyze soil quality
-POST	/predict/general	General crop recommendation
-POST	/predict/location-aware	Location-aware crop prediction
-🤖 Machine Learning Models
-🌱 Soil Type Model
-
-The Soil Type Model analyzes soil and environmental parameters to predict the most likely soil category.
-
-Provides:
-Predicted Soil Type
-Confidence Score
-Top-3 Soil Type Probabilities
-⭐ Soil Quality Model
-
-The Soil Quality Model estimates the overall quality of the soil based on available agricultural parameters.
-
-Provides:
-Soil Quality Percentage
-Soil Health Classification
-Estimated Soil Condition
-🌾 Crop Recommendation Models
-
-AgriSense AI uses crop recommendation models to identify crops that are potentially suitable for the given agricultural conditions.
-
-Provides:
-Top-5 Recommended Crops
-Prediction Probability
-General Crop Prediction
-Location-Aware Crop Prediction
-📊 Parameters Used
-
-The AI models can analyze agricultural parameters such as:
-
-Nitrogen
-Phosphorus
-Potassium
-Soil pH
-Soil Moisture
-Organic Carbon
-Electrical Conductivity
-Temperature
-Humidity
-Rainfall
-Soil Type
-Crop Season
-State
-
-These parameters provide information about the soil condition, environmental conditions, and geographical context required for agricultural decision support.
-
-🌱 Example Workflow
-
-A typical prediction workflow looks like:
-
-1. User enters agricultural parameters
-              ↓
-2. React sends the data to FastAPI
-              ↓
-3. FastAPI validates the input
-              ↓
-4. Machine Learning model processes the data
-              ↓
-5. Model generates prediction
-              ↓
-6. Backend returns prediction results
-              ↓
-7. React displays agricultural insights
-⚡ FastAPI
-
-The backend is developed using FastAPI, providing:
-
-High-performance API endpoints
-Automatic request validation
-Interactive API documentation
-Easy integration with Machine Learning models
-JSON-based communication with the frontend
-🔬 Machine Learning Pipeline
-
-The general ML pipeline used by AgriSense AI is:
-
-Dataset
-   ↓
-Data Cleaning
-   ↓
-Feature Selection
-   ↓
-Data Preprocessing
-   ↓
-Model Training
-   ↓
-Model Evaluation
-   ↓
-Model Serialization
-   ↓
-FastAPI Integration
-   ↓
-Prediction
-
-Trained models are stored using Joblib and loaded by the FastAPI backend during application startup.
-
-🔐 Security & Best Practices
-
-For production deployment, the following improvements are recommended:
-
-Use environment variables for secrets
-Configure production CORS policies
-Validate all API inputs
-Avoid exposing sensitive configuration files
-Use HTTPS
-Add authentication and authorization
-Implement API rate limiting
-Add logging and monitoring
-Use production-grade deployment infrastructure
-🔮 Future Improvements
-
-AgriSense AI can be expanded with several advanced capabilities:
-
-📡 IoT Sensor Integration
-🌦️ Real-Time Weather Data
-🛰️ Satellite Data Integration
-📱 Mobile Application
-🗺️ District-Level Recommendations
-📊 Government Agriculture Dashboard
-🌐 Multi-Language Support
-🔔 Smart Farming Alerts
-📈 Historical Soil Analysis
-🌾 Personalized Farmer Recommendations
-🧑‍🌾 Farmer-Friendly Voice Interface
-🤖 AI-Based Agricultural Assistant
-🌍 Potential Impact
-
-AgriSense AI aims to demonstrate how Artificial Intelligence and Machine Learning can contribute to data-driven agriculture.
-
-Potential benefits include:
-
-👨‍🌾 For Farmers
-Better understanding of soil conditions
-Data-driven crop selection
-Easy-to-understand agricultural insights
-Reduced dependency on guesswork
-🏛️ For Government & Institutions
-Agricultural data analysis
-Regional crop planning
-Soil health monitoring
-Digital agriculture initiatives
-Decision-support systems
-🔬 For Researchers
-Agricultural data experimentation
-ML model development
-Soil and crop analysis
-Smart agriculture research
-🎓 Academic Project
-
-AgriSense AI was developed as an AI and Machine Learning-based Smart Agriculture project.
-
-The project demonstrates how:
-
-Machine Learning
-       +
-FastAPI
-       +
-React
-       ↓
-Smart Agriculture Decision Support
-
-can be combined into a complete full-stack AI application.
-
-This project is intended for academic, educational, and prototype purposes. Predictions should not be treated as a substitute for professional agricultural advice without proper field validation.
-
-🛠️ Development
-
-To contribute to the project:
-
-1. Create a new branch
-git checkout -b feature/your-feature-name
-2. Make your changes
-
-Update the frontend, backend, ML models, or documentation as required.
-
-3. Check your changes
-git status
-4. Add changes
+🤝 Contributing:
+Fork the repository
+Create a feature branch
+Make your changes
+Commit and push
+Create a Pull Request
+git checkout -b feature/your-feature
 git add .
-5. Commit changes
-git commit -m "Add your feature description"
-6. Push your branch
-git push origin feature/your-feature-name
-7. Create a Pull Request
-
-Open the repository on GitHub and create a Pull Request to merge your changes.
-
-📌 Important Notes
-Make sure the required ML model files are available in the backend/models/ directory.
-Always activate the Python virtual environment before running the backend.
-The backend must be running before making prediction requests from the frontend.
-Run npm install after cloning the project.
-Do not commit .venv, node_modules, secrets, or other unnecessary files to GitHub.
-📄 License
-
-This project is developed for educational and academic purposes.
-
-You may add an appropriate open-source license such as MIT License if you plan to make the project publicly reusable.
-
-<p align="center">
-🌱 AgriSense AI
-Smart Agriculture Through Artificial Intelligence 🚀
-
-Building a smarter, more data-driven future for agriculture. 🌾
-
-</p> ```
-
-This version also fixes the broken Markdown/code fences and the API endpoint table from your original text.
+git commit -m "Add your feature"
+git push origin feature/your-feature
+<p align="center"> 🌱 <b>AgriSense AI</b><br> Smart Agriculture Through Artificial Intelligence 🚀🌾 </p> 
