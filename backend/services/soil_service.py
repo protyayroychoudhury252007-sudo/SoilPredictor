@@ -9,22 +9,37 @@ import pandas as pd
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-MODEL_PATH = (
+
+# =========================================================
+# MODEL PATHS
+# =========================================================
+
+SOIL_TYPE_MODEL_PATH = (
     BASE_DIR
     / "models"
     / "soil_type_model.joblib"
 )
 
+SOIL_QUALITY_MODEL_PATH = (
+    BASE_DIR
+    / "models"
+    / "soil_quality_model.joblib"
+)
+
 
 # =========================================================
-# LOAD MODEL
+# LOAD MODELS
 # =========================================================
 
-soil_model = joblib.load(MODEL_PATH)
+soil_model = joblib.load(SOIL_TYPE_MODEL_PATH)
+
+soil_quality_model = joblib.load(
+    SOIL_QUALITY_MODEL_PATH
+)
 
 
 # =========================================================
-# PREDICT FUNCTION
+# SOIL TYPE PREDICTION
 # =========================================================
 
 def predict_soil(data):
@@ -42,9 +57,7 @@ def predict_soil(data):
         }
     ])
 
-    prediction = soil_model.predict(
-        input_data
-    )[0]
+    prediction = soil_model.predict(input_data)[0]
 
     probabilities = soil_model.predict_proba(
         input_data
@@ -74,4 +87,38 @@ def predict_soil(data):
         "predicted_soil_type": str(prediction),
         "confidence": results[0]["probability"],
         "top_3_soil_types": results[:3]
+    }
+
+
+# =========================================================
+# SOIL QUALITY PREDICTION
+# =========================================================
+
+def predict_soil_quality(data):
+
+    input_data = pd.DataFrame([
+        {
+            "Nitrogen": data.nitrogen,
+            "Phosphorus": data.phosphorus,
+            "Potassium": data.potassium,
+            "pH_Value": data.ph_value,
+            "Soil_Moisture": data.soil_moisture,
+            "Organic_Carbon": data.organic_carbon,
+            "Electrical_Conductivity": data.electrical_conductivity,
+            "Temperature": data.temperature,
+            "Humidity": data.humidity,
+            "Rainfall": data.rainfall
+        }
+    ])
+
+    prediction = soil_quality_model.predict(
+        input_data
+    )[0]
+
+    return {
+        "model": "soil_quality_predictor",
+        "soil_quality_score": round(
+            float(prediction),
+            2
+        )
     }
