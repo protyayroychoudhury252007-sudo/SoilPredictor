@@ -2,46 +2,15 @@ from pathlib import Path
 import joblib
 import pandas as pd
 
-
-# =========================================================
-# PATH
-# =========================================================
-
 BASE_DIR = Path(__file__).resolve().parent.parent
-
 MODELS_DIR = BASE_DIR / "models"
+GENERAL_MODEL_PATH = (MODELS_DIR/ "agrishare_crop_general.joblib")
+LOCATION_MODEL_PATH = (MODELS_DIR/ "agrishare_crop_location_aware.joblib")
 
-
-GENERAL_MODEL_PATH = (
-    MODELS_DIR
-    / "agrishare_crop_general.joblib"
-)
-
-LOCATION_MODEL_PATH = (
-    MODELS_DIR
-    / "agrishare_crop_location_aware.joblib"
-)
-
-
-# =========================================================
-# LOAD MODELS
-# =========================================================
-
-general_model = joblib.load(
-    GENERAL_MODEL_PATH
-)
-
-location_model = joblib.load(
-    LOCATION_MODEL_PATH
-)
-
-
-# =========================================================
-# GENERAL CROP PREDICTION
-# =========================================================
+general_model = joblib.load(GENERAL_MODEL_PATH)
+location_model = joblib.load(LOCATION_MODEL_PATH)
 
 def predict_general_crop(data):
-
     input_data = pd.DataFrame([
         {
             "soil_type": data.soil_type,
@@ -58,13 +27,8 @@ def predict_general_crop(data):
             "rainfall": data.rainfall
         }
     ])
-
-    probabilities = general_model.predict_proba(
-        input_data
-    )[0]
-
+    probabilities = general_model.predict_proba(input_data)[0]
     crops = general_model.classes_
-
     results = [
         {
             "crop": str(crop),
@@ -76,24 +40,16 @@ def predict_general_crop(data):
         for crop, probability
         in zip(crops, probabilities)
     ]
-
     results.sort(
         key=lambda x: x["probability"],
         reverse=True
     )
-
     return {
         "model": "general_crop_recommendation",
         "top_5_crops": results[:5]
     }
 
-
-# =========================================================
-# LOCATION-AWARE CROP PREDICTION
-# =========================================================
-
 def predict_location_crop(data):
-
     input_data = pd.DataFrame([
         {
             "state": data.state,
@@ -111,13 +67,8 @@ def predict_location_crop(data):
             "rainfall": data.rainfall
         }
     ])
-
-    probabilities = location_model.predict_proba(
-        input_data
-    )[0]
-
+    probabilities = location_model.predict_proba(input_data)[0]
     crops = location_model.classes_
-
     results = [
         {
             "crop": str(crop),
@@ -129,12 +80,10 @@ def predict_location_crop(data):
         for crop, probability
         in zip(crops, probabilities)
     ]
-
     results.sort(
         key=lambda x: x["probability"],
         reverse=True
     )
-
     return {
         "model": "location_aware_crop_recommendation",
         "top_5_crops": results[:5]

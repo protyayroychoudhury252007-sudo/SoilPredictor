@@ -2,7 +2,6 @@ from pathlib import Path
 import sys
 import pandas as pd
 import joblib
-
 from sklearn.model_selection import train_test_split
 from sklearn.compose import ColumnTransformer
 from sklearn.pipeline import Pipeline
@@ -10,40 +9,20 @@ from sklearn.preprocessing import OneHotEncoder
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.metrics import accuracy_score, classification_report, confusion_matrix
 
-
-# =========================================================
-# PROJECT PATH
-# =========================================================
-
 SCRIPT_DIR = Path(__file__).resolve().parent
 PROJECT_DIR = SCRIPT_DIR.parent
-
 MODEL_DIR = PROJECT_DIR / "models"
 MODEL_PATH = MODEL_DIR / "soil_type_model.joblib"
 
-
-print("\n" + "=" * 60)
 print("SOIL TYPE PREDICTION MODEL TRAINING")
-print("=" * 60)
-
 print(f"\nScript Directory:\n{SCRIPT_DIR}")
 print(f"\nProject Directory:\n{PROJECT_DIR}")
 
 
-# =========================================================
-# AUTOMATICALLY FIND CSV FILE
-# =========================================================
-
 print("\nSearching for CSV files in the project...\n")
-
-# Search recursively through the complete project
 csv_files = list(PROJECT_DIR.rglob("*.csv"))
 csv_files += list(PROJECT_DIR.rglob("*.CSV"))
-
-# Remove duplicates
 csv_files = list(set(csv_files))
-
-
 print("CSV files found:")
 
 if csv_files:
@@ -55,18 +34,10 @@ else:
 
 if not csv_files:
     print("\nERROR: No CSV dataset was found anywhere in the project!")
-
     print("\nMake sure your CSV file is inside:")
     print(PROJECT_DIR)
-
     sys.exit(1)
 
-
-# =========================================================
-# SELECT THE CORRECT CSV
-# =========================================================
-
-# Prefer files containing sensor/crop/dataset in the name
 preferred_files = [
     file for file in csv_files
     if (
@@ -75,7 +46,6 @@ preferred_files = [
         or "dataset" in file.name.lower()
     )
 ]
-
 if preferred_files:
     DATASET_PATH = preferred_files[0]
 else:
@@ -88,48 +58,23 @@ print("=" * 60)
 
 print(f"\nDataset:\n{DATASET_PATH}")
 
-
-# =========================================================
-# LOAD DATASET
-# =========================================================
-
 print("\nLoading dataset...")
-
 try:
     df = pd.read_csv(DATASET_PATH)
     print("Dataset loaded successfully! ✅")
-
 except Exception as e:
     print("\nERROR while loading dataset:")
     print(e)
     sys.exit(1)
 
-
-# =========================================================
-# CLEAN COLUMN NAMES
-# =========================================================
-
 df.columns = df.columns.astype(str).str.strip()
-
-
-print("\n" + "=" * 60)
 print("DATASET INFORMATION")
-print("=" * 60)
-
 print(f"\nDataset Shape: {df.shape}")
-
 print("\nColumns Found:")
-
 for column in df.columns:
     print(f" - {column}")
-
 print("\nFirst 5 rows:")
 print(df.head())
-
-
-# =========================================================
-# REQUIRED FEATURES
-# =========================================================
 
 FEATURES = [
     "Nitrogen",
@@ -143,54 +88,28 @@ FEATURES = [
 ]
 
 TARGET = "Soil_Type"
-
 required_columns = FEATURES + [TARGET]
-
-
-# =========================================================
-# VALIDATE COLUMNS
-# =========================================================
-
 missing_columns = [
     column for column in required_columns
     if column not in df.columns
 ]
-
 if missing_columns:
-
-    print("\n" + "=" * 60)
     print("ERROR: MISSING REQUIRED COLUMNS")
-    print("=" * 60)
-
     print("\nMissing:")
     for column in missing_columns:
         print(f" - {column}")
-
     print("\nAvailable:")
     for column in df.columns:
         print(f" - {column}")
-
     sys.exit(1)
-
-
-# =========================================================
-# CLEAN DATA
-# =========================================================
-
 print("\n" + "=" * 60)
 print("DATA CLEANING")
 print("=" * 60)
-
 print("\nMissing values:")
 print(df[required_columns].isnull().sum())
-
-
 rows_before = len(df)
-
 df = df.dropna(subset=required_columns)
-
 df = df.drop_duplicates()
-
 rows_after = len(df)
 
 print(f"\nRows before cleaning: {rows_before}")

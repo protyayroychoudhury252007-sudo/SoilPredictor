@@ -1,21 +1,13 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-
 from api.soil import router as soil_router
 from api.crop import router as crop_router
-
 
 app = FastAPI(
     title="AgriShare AI API",
     description="Soil Type Prediction and Crop Recommendation API",
     version="2.0.0"
 )
-
-
-# =========================================================
-# CORS
-# =========================================================
-
 app.add_middleware(
     CORSMiddleware,
     allow_origins=["*"],
@@ -23,29 +15,16 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
-
-
-# =========================================================
-# ROUTERS
-# =========================================================
-
 app.include_router(
     soil_router,
     prefix="/predict",
     tags=["Soil Prediction"]
 )
-
 app.include_router(
     crop_router,
     prefix="/predict",
     tags=["Crop Recommendation"]
 )
-
-
-# =========================================================
-# BASIC ENDPOINTS
-# =========================================================
-
 @app.get("/")
 def home():
     return {
@@ -58,8 +37,6 @@ def home():
             "docs": "/docs"
         }
     }
-
-
 @app.get("/health")
 def health():
     return {
