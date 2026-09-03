@@ -2,48 +2,13 @@ from pathlib import Path
 import joblib
 import pandas as pd
 
-
-# =========================================================
-# PATH
-# =========================================================
-
 BASE_DIR = Path(__file__).resolve().parent.parent
-
-
-# =========================================================
-# MODEL PATHS
-# =========================================================
-
-SOIL_TYPE_MODEL_PATH = (
-    BASE_DIR
-    / "models"
-    / "soil_type_model.joblib"
-)
-
-SOIL_QUALITY_MODEL_PATH = (
-    BASE_DIR
-    / "models"
-    / "soil_quality_model.joblib"
-)
-
-
-# =========================================================
-# LOAD MODELS
-# =========================================================
-
+SOIL_TYPE_MODEL_PATH = (BASE_DIR/ "models" / "soil_type_model.joblib")
+SOIL_QUALITY_MODEL_PATH = (BASE_DIR/ "models"/ "soil_quality_model.joblib")
 soil_model = joblib.load(SOIL_TYPE_MODEL_PATH)
-
-soil_quality_model = joblib.load(
-    SOIL_QUALITY_MODEL_PATH
-)
-
-
-# =========================================================
-# SOIL TYPE PREDICTION
-# =========================================================
+soil_quality_model = joblib.load(SOIL_QUALITY_MODEL_PATH)
 
 def predict_soil(data):
-
     input_data = pd.DataFrame([
         {
             "Nitrogen": data.nitrogen,
@@ -56,15 +21,9 @@ def predict_soil(data):
             "Crop": data.crop
         }
     ])
-
     prediction = soil_model.predict(input_data)[0]
-
-    probabilities = soil_model.predict_proba(
-        input_data
-    )[0]
-
+    probabilities = soil_model.predict_proba(input_data)[0]
     soil_types = soil_model.classes_
-
     results = [
         {
             "soil_type": str(soil_type),
@@ -76,12 +35,10 @@ def predict_soil(data):
         for soil_type, probability
         in zip(soil_types, probabilities)
     ]
-
     results.sort(
         key=lambda x: x["probability"],
         reverse=True
     )
-
     return {
         "model": "soil_type_predictor",
         "predicted_soil_type": str(prediction),
@@ -89,13 +46,7 @@ def predict_soil(data):
         "top_3_soil_types": results[:3]
     }
 
-
-# =========================================================
-# SOIL QUALITY PREDICTION
-# =========================================================
-
 def predict_soil_quality(data):
-
     input_data = pd.DataFrame([
         {
             "Nitrogen": data.nitrogen,
@@ -110,11 +61,7 @@ def predict_soil_quality(data):
             "Rainfall": data.rainfall
         }
     ])
-
-    prediction = soil_quality_model.predict(
-        input_data
-    )[0]
-
+    prediction = soil_quality_model.predict(input_data )[0]
     return {
         "model": "soil_quality_predictor",
         "soil_quality_score": round(
