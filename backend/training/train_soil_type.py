@@ -121,30 +121,16 @@ if len(df) < 20:
     print("\nERROR: Not enough data for training!")
     sys.exit(1)
 
-
-# =========================================================
-# PREPARE X AND Y
-# =========================================================
-
 X = df[FEATURES].copy()
 y = df[TARGET].copy()
-
 
 print("\n" + "=" * 60)
 print("SOIL TYPE DISTRIBUTION")
 print("=" * 60)
-
 print(y.value_counts())
-
-
 if y.nunique() < 2:
     print("\nERROR: At least 2 soil types are required!")
     sys.exit(1)
-
-
-# =========================================================
-# FEATURE GROUPS
-# =========================================================
 
 NUMERICAL_FEATURES = [
     "Nitrogen",
@@ -159,31 +145,10 @@ NUMERICAL_FEATURES = [
 CATEGORICAL_FEATURES = [
     "Crop"
 ]
-
-
-# =========================================================
-# TRAIN / TEST SPLIT
-# =========================================================
-
-print("\n" + "=" * 60)
 print("SPLITTING DATA")
-print("=" * 60)
-
-X_train, X_test, y_train, y_test = train_test_split(
-    X,
-    y,
-    test_size=0.20,
-    random_state=42,
-    stratify=y
-)
-
+X_train, X_test, y_train, y_test = train_test_split(X,y,test_size=0.20,random_state=42,stratify=y)
 print(f"\nTraining samples: {len(X_train)}")
 print(f"Testing samples: {len(X_test)}")
-
-
-# =========================================================
-# PREPROCESSING
-# =========================================================
 
 preprocessor = ColumnTransformer(
     transformers=[
@@ -200,11 +165,6 @@ preprocessor = ColumnTransformer(
     ]
 )
 
-
-# =========================================================
-# MODEL
-# =========================================================
-
 model = RandomForestClassifier(
     n_estimators=300,
     max_depth=15,
@@ -215,11 +175,6 @@ model = RandomForestClassifier(
     class_weight="balanced"
 )
 
-
-# =========================================================
-# PIPELINE
-# =========================================================
-
 pipeline = Pipeline(
     steps=[
         ("preprocessor", preprocessor),
@@ -227,102 +182,30 @@ pipeline = Pipeline(
     ]
 )
 
-
-# =========================================================
-# TRAIN
-# =========================================================
-
-print("\n" + "=" * 60)
 print("TRAINING MODEL")
-print("=" * 60)
-
 print("\nTraining Random Forest...")
-
 pipeline.fit(X_train, y_train)
-
 print("\nTraining completed successfully! ✅")
-
-
-# =========================================================
-# EVALUATION
-# =========================================================
-
-print("\n" + "=" * 60)
 print("MODEL EVALUATION")
-print("=" * 60)
-
 y_pred = pipeline.predict(X_test)
-
 accuracy = accuracy_score(y_test, y_pred)
-
 print(f"\nAccuracy: {accuracy * 100:.2f}%")
-
-
 print("\nClassification Report:\n")
-
-print(
-    classification_report(
-        y_test,
-        y_pred,
-        zero_division=0
-    )
-)
-
-
-# =========================================================
-# CONFUSION MATRIX
-# =========================================================
+print(classification_report(y_test,y_pred,zero_division=0))
 
 labels = sorted(y.unique())
-
-cm = confusion_matrix(
-    y_test,
-    y_pred,
-    labels=labels
-)
-
-cm_df = pd.DataFrame(
-    cm,
-    index=labels,
-    columns=labels
-)
-
+cm = confusion_matrix(y_test,y_pred,labels=labels)
+cm_df = pd.DataFrame(cm,index=labels,columns=labels)
 print("\nConfusion Matrix:")
 print("Rows = Actual | Columns = Predicted\n")
-
 print(cm_df)
 
-
-# =========================================================
-# SAVE MODEL
-# =========================================================
-
-MODEL_DIR.mkdir(
-    parents=True,
-    exist_ok=True
-)
-
-joblib.dump(
-    pipeline,
-    MODEL_PATH
-)
-
-print("\n" + "=" * 60)
+MODEL_DIR.mkdir(parents=True,exist_ok=True)
+joblib.dump(pipeline,MODEL_PATH)
 print("MODEL SAVED SUCCESSFULLY! ✅")
-print("=" * 60)
-
 print(f"\nModel saved at:\n{MODEL_PATH}")
 
-
-# =========================================================
-# SAMPLE PREDICTION
-# =========================================================
-
-print("\n" + "=" * 60)
 print("SAMPLE PREDICTION")
-print("=" * 60)
-
-
 sample_data = pd.DataFrame([{
     "Nitrogen": 70,
     "Phosphorus": 40,
@@ -333,21 +216,10 @@ sample_data = pd.DataFrame([{
     "Rainfall": 1200,
     "Crop": "Wheat",
 }])
-
-
 prediction = pipeline.predict(sample_data)[0]
-
 probabilities = pipeline.predict_proba(sample_data)[0]
-
 confidence = probabilities.max() * 100
-
-
 print(f"\nPredicted Soil Type: {prediction}")
 print(f"Confidence: {confidence:.2f}%")
-
-
-print("\n" + "=" * 60)
 print("TRAINING COMPLETED SUCCESSFULLY 🌱")
-print("=" * 60)
-
 print(f"\nFinal Test Accuracy: {accuracy * 100:.2f}%")
